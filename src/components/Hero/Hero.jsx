@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+const GREETING_UPDATE_INTERVAL_MS = 60 * 1000;
+
 const roles = [
   "Full-Stack Developer",
   "Backend Engineer",
@@ -48,7 +50,7 @@ export default function Hero() {
 
   // Update greeting on time change
   useEffect(() => {
-    const interval = setInterval(() => setGreeting(getGreeting()), 60 * 1000);
+    const interval = setInterval(() => setGreeting(getGreeting()), GREETING_UPDATE_INTERVAL_MS);
     return () => clearInterval(interval);
   }, []);
 
@@ -69,11 +71,11 @@ export default function Hero() {
       {/* Animated Programming Particle Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {/* Emojis as particles */}
-        <span className="absolute left-[10%] top-[18%] text-4xl animate-particle1 select-none">☕</span>
+        {/* <span className="absolute left-[10%] top-[18%] text-4xl animate-particle1 select-none">☕</span> */}
         <span className="absolute left-[80%] top-[70%] text-3xl animate-particle2 select-none">🐍</span>
         <span className="absolute left-[50%] top-[50%] text-3xl animate-particle3 select-none">⚛️</span>
         <span className="absolute left-[20%] top-[80%] text-3xl animate-particle4 select-none">🌐</span>
-        <span className="absolute left-[70%] top-[20%] text-3xl animate-particle5 select-none">💻</span>
+        {/* <span className="absolute left-[70%] top-[20%] text-3xl animate-particle5 select-none">💻</span> */}
         {/* You can add more or swap for SVG icons */}
       </div>
 
@@ -107,7 +109,7 @@ export default function Hero() {
         </div>
 
         {/* Description in Glowing Box */}
-        <div className="mx-auto mb-12 max-w-2xl md:max-w-6xl px-6 py-6 rounded-2xl bg-gradient-to-br from-blue-900 via-blue-950 to-purple-950/80 border border-cyan-400/30 shadow-lg glowing-desc-box">
+        <div className="mx-auto mb-12 max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl px-6 py-6 rounded-2xl bg-gradient-to-br from-blue-900 via-blue-950 to-purple-950/80 border border-cyan-400/30 shadow-lg glowing-desc-box">
           <p className="text-xl text-blue-200 drop-shadow-[0_2px_12px_rgba(34,211,238,0.3)]">
             Results-driven and adaptable Computer Science graduate with 2+ years of
             hands-on experience in building scalable full-stack applications using
@@ -167,16 +169,16 @@ export default function Hero() {
             animation: fade-in 1s ease-out forwards;
           }
           /* Particle Animations */
-          @keyframes particle1 { 0%{top:18%;} 50%{top:70%;} 100%{top:18%;} }
+          /* @keyframes particle1 { 0%{top:18%;} 50%{top:70%;} 100%{top:18%;} } */
           @keyframes particle2 { 0%{top:70%;} 50%{top:30%;} 100%{top:70%;} }
           @keyframes particle3 { 0%{left:50%;} 50%{left:60%;} 100%{left:50%;} }
           @keyframes particle4 { 0%{top:80%;} 50%{top:20%;} 100%{top:80%;} }
-          @keyframes particle5 { 0%{left:70%;} 50%{left:30%;} 100%{left:70%;} }
-          .animate-particle1 { animation: particle1 8s ease-in-out infinite; }
+          /* @keyframes particle5 { 0%{left:70%;} 50%{left:30%;} 100%{left:70%;} } */
+          /* .animate-particle1 { animation: particle1 8s ease-in-out infinite; } */
           .animate-particle2 { animation: particle2 10s ease-in-out infinite; }
           .animate-particle3 { animation: particle3 7s ease-in-out infinite; }
           .animate-particle4 { animation: particle4 9s ease-in-out infinite; }
-          .animate-particle5 { animation: particle5 11s ease-in-out infinite; }
+          /* .animate-particle5 { animation: particle5 11s ease-in-out infinite; } */
         `}
       </style>
     </section>
