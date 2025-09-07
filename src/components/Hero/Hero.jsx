@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const GREETING_UPDATE_INTERVAL_MS = 60 * 1000;
 
@@ -24,6 +24,10 @@ export default function Hero() {
 
   // Greeting state
   const [greeting, setGreeting] = useState(getGreeting());
+
+  // Parallax state
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+  const sectionRef = useRef(null);
 
   // Typing effect logic
   useEffect(() => {
@@ -54,6 +58,19 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  // Parallax effect for particles
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      setParallax({ x, y });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   // Smooth scroll to projects
   const handleScrollToProjects = (e) => {
     e.preventDefault();
@@ -66,22 +83,34 @@ export default function Hero() {
   return (
     <section
       id="hero"
+      ref={sectionRef}
       className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-purple-950 text-white flex items-center justify-center relative"
     >
-      {/* Animated Programming Particle Background */}
+      {/* Animated Programming Particle Background with Parallax */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        {/* Emojis as particles */}
-        {/* <span className="absolute left-[10%] top-[18%] text-4xl animate-particle1 select-none">☕</span> */}
-        <span className="absolute left-[80%] top-[70%] text-3xl animate-particle2 select-none">🐍</span>
-        <span className="absolute left-[50%] top-[50%] text-3xl animate-particle3 select-none">⚛️</span>
-        <span className="absolute left-[20%] top-[80%] text-3xl animate-particle4 select-none">🌐</span>
-        {/* <span className="absolute left-[70%] top-[20%] text-3xl animate-particle5 select-none">💻</span> */}
-        {/* You can add more or swap for SVG icons */}
+        <span
+          className="absolute left-[80%] top-[70%] text-3xl animate-particle2 select-none"
+          style={{
+            transform: `translate(${parallax.x * 20}px, ${parallax.y * 10}px)`
+          }}
+        >🐍</span>
+        <span
+          className="absolute left-1/2 top-1/2 text-3xl animate-particle3 select-none"
+          style={{
+            transform: `translate(${parallax.x * -10}px, ${parallax.y * 20}px)`
+          }}
+        >⚛️</span>
+        <span
+          className="absolute left-[20%] top-[80%] text-3xl animate-particle4 select-none"
+          style={{
+            transform: `translate(${parallax.x * 15}px, ${parallax.y * -10}px)`
+          }}
+        >🌐</span>
       </div>
 
-      <div className="text-center px-4 max-w-3xl mx-auto relative z-10">
-        {/* Profile Image with Glow */}
-        <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 p-1 shadow-xl shadow-cyan-400/40 animate-pulse">
+      <div className="relative z-10 flex flex-col items-center w-full px-4">
+        {/* Profile Image with Animated Gradient Border */}
+        <div className="w-32 h-32 mb-8 rounded-full p-1 animated-gradient-border flex items-center justify-center">
           <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
             <img
               src="/profile.JPG"
@@ -92,10 +121,10 @@ export default function Hero() {
         </div>
 
         {/* Greeting */}
-        <div className="mb-2 text-lg text-cyan-200 font-mono animate-fade-in">{greeting}</div>
+        <div className="mb-2 text-lg text-cyan-200 font-mono animate-fade-in text-center">{greeting}</div>
 
         {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-2 drop-shadow-[0_2px_24px_rgba(34,211,238,0.6)]">
+        <h1 className="text-5xl md:text-7xl font-bold mb-2 drop-shadow-[0_2px_24px_rgba(34,211,238,0.6)] text-center">
           Hi, I'm{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
             Lloyd
@@ -103,14 +132,14 @@ export default function Hero() {
         </h1>
 
         {/* Typing Effect */}
-        <div className="mb-6 h-8">
+        <div className="mb-6 h-8 text-center">
           <span className="text-cyan-300 text-2xl font-mono">{displayed}&nbsp;</span>
           <span className="text-cyan-400 animate-pulse">|</span>
         </div>
 
         {/* Description in Glowing Box */}
-        <div className="mx-auto mb-12 max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl px-6 py-6 rounded-2xl bg-gradient-to-br from-blue-900 via-blue-950 to-purple-950/80 border border-cyan-400/30 shadow-lg glowing-desc-box">
-          <p className="text-xl text-blue-200 drop-shadow-[0_2px_12px_rgba(34,211,238,0.3)]">
+        <div className="mx-auto mb-8 w-full max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl px-6 py-6 rounded-2xl bg-gradient-to-br from-blue-900 via-blue-950 to-purple-950/80 border border-cyan-400/30 shadow-lg glowing-desc-box">
+          <p className="text-xl text-blue-200 drop-shadow-[0_2px_12px_rgba(34,211,238,0.3)] text-center">
             Results-driven and adaptable Computer Science graduate with 2+ years of
             hands-on experience in building scalable full-stack applications using
             Java (Spring Boot) and Python (Flask). Proven expertise in developing
@@ -123,11 +152,11 @@ export default function Hero() {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
           <a
             href="#projects"
             onClick={handleScrollToProjects}
-            className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-400/40 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-400/40 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-center"
             aria-label="View My Work"
             style={{ boxShadow: "0 0 24px 4px #22d3ee55" }}
           >
@@ -136,7 +165,7 @@ export default function Hero() {
           <a
             href="/resume.pdf"
             download
-            className="border-2 border-cyan-400 text-cyan-300 hover:bg-cyan-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-md shadow-cyan-400/30 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            className="border-2 border-cyan-400 text-cyan-300 hover:bg-cyan-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-md shadow-cyan-400/30 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-center"
             aria-label="Download Resume"
             style={{ boxShadow: "0 0 16px 2px #22d3ee44" }}
           >
@@ -144,14 +173,15 @@ export default function Hero() {
           </a>
           <a
             href="mailto:mrloyiiee@gmail.com?subject=Request%20for%20Certificates"
-            className="border-2 border-purple-400 text-purple-300 hover:bg-purple-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-md shadow-purple-400/30 focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="border-2 border-purple-400 text-purple-300 hover:bg-purple-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-md shadow-purple-400/30 focus:outline-none focus:ring-2 focus:ring-purple-400 text-center"
             aria-label="Request Certificates"
             style={{ boxShadow: "0 0 16px 2px #a21caf44" }}
           >
             Request Certificates
           </a>
         </div>
-        <p className="text-purple-300 mt-4">
+
+        <p className="text-purple-300 mt-4 text-center">
           Certificates available upon request.
         </p>
       </div>
@@ -161,6 +191,16 @@ export default function Hero() {
           .glowing-desc-box {
             box-shadow: 0 0 32px 8px #22d3ee55, 0 0 64px 16px #a21caf44;
           }
+          .animated-gradient-border {
+            background: linear-gradient(270deg, #22d3ee, #a21caf, #818cf8, #22d3ee);
+            background-size: 600% 600%;
+            animation: gradient-border 8s ease infinite;
+          }
+          @keyframes gradient-border {
+            0% {background-position:0% 50%}
+            50% {background-position:100% 50%}
+            100% {background-position:0% 50%}
+          }
           @keyframes fade-in {
             from { opacity: 0; transform: translateY(16px);}
             to { opacity: 1; transform: translateY(0);}
@@ -169,16 +209,12 @@ export default function Hero() {
             animation: fade-in 1s ease-out forwards;
           }
           /* Particle Animations */
-          /* @keyframes particle1 { 0%{top:18%;} 50%{top:70%;} 100%{top:18%;} } */
           @keyframes particle2 { 0%{top:70%;} 50%{top:30%;} 100%{top:70%;} }
           @keyframes particle3 { 0%{left:50%;} 50%{left:60%;} 100%{left:50%;} }
           @keyframes particle4 { 0%{top:80%;} 50%{top:20%;} 100%{top:80%;} }
-          /* @keyframes particle5 { 0%{left:70%;} 50%{left:30%;} 100%{left:70%;} } */
-          /* .animate-particle1 { animation: particle1 8s ease-in-out infinite; } */
           .animate-particle2 { animation: particle2 10s ease-in-out infinite; }
           .animate-particle3 { animation: particle3 7s ease-in-out infinite; }
           .animate-particle4 { animation: particle4 9s ease-in-out infinite; }
-          /* .animate-particle5 { animation: particle5 11s ease-in-out infinite; } */
         `}
       </style>
     </section>
