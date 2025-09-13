@@ -64,6 +64,8 @@ const SkillsSection = () => {
       aria-label="Skills and technologies"
       className="py-20 bg-gradient-to-br from-blue-950 via-blue-900 to-purple-950 glowing-margin"
     >
+      {/* Section Divider */}
+      <div className="absolute left-1/2 -translate-x-1/2 w-2/3 h-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full blur-lg opacity-70 z-10"></div>
       <div className="max-w-7xl mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -72,16 +74,22 @@ const SkillsSection = () => {
         </div>
 
         {/* Skills Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
-            <div key={category} className="text-center">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+          {Object.entries(skillsByCategory).map(([category, categorySkills], catIdx) => (
+            <div
+              key={category}
+              className="text-center animate-fade-in"
+              style={{ animationDelay: `${catIdx * 0.1}s` }}
+            >
               <h3 className="text-2xl font-semibold text-cyan-200 mb-6 drop-shadow-glow">{category}</h3>
-              <div className="flex flex-wrap justify-center gap-3">
-                {categorySkills.map(skill => (
+              <div className="flex flex-wrap justify-center gap-3" role="list">
+                {categorySkills.map((skill, i) => (
                   <div
                     key={skill.id}
                     tabIndex="0"
-                    className="bg-blue-900/60 hover:bg-cyan-900/60 border border-blue-900/40 rounded-xl px-4 py-3 transition-all duration-200 group shadow-lg shadow-cyan-400/10 focus:ring-2 focus:ring-cyan-400 animate-fade-in"
+                    role="listitem"
+                    className="bg-blue-900/60 hover:bg-cyan-900/60 border border-blue-900/40 rounded-xl px-4 py-3 transition-all duration-200 group shadow-lg shadow-cyan-400/10 focus:ring-2 focus:ring-cyan-400 animate-fade-in relative"
+                    style={{ animationDelay: `${i * 0.05}s` }}
                   >
                     <div className="flex items-center space-x-2">
                       {skill.iconUrl ? (
@@ -93,12 +101,20 @@ const SkillsSection = () => {
                         {skill.name}
                       </span>
                     </div>
+                    {skill.info && (
+                      <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-xs px-3 py-1 bg-cyan-900 text-cyan-100 text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition pointer-events-none z-20">
+                        {skill.info}
+                      </span>
+                    )}
                     {skill.proficiency && (
-                      <div className="mt-2 w-full bg-cyan-950 rounded-full h-2">
+                      <div className="mt-2 w-full bg-cyan-950 rounded-full h-2 relative">
                         <div
                           className="bg-cyan-400 h-2 rounded-full transition-all duration-1000"
                           style={{ width: `${skill.proficiency}%` }}
                         ></div>
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-cyan-200 font-semibold">
+                          {skill.proficiency}%
+                        </span>
                       </div>
                     )}
                   </div>
