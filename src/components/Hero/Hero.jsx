@@ -84,106 +84,94 @@ export default function Hero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-purple-950 text-white flex items-center justify-center relative"
+      className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-purple-950 text-white flex items-center justify-center relative overflow-hidden"
     >
-      {/* Animated Programming Particle Background with Parallax */}
+      {/* Parallax Particle Background */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <span
-          className="absolute left-[80%] top-[70%] text-3xl animate-particle2 select-none"
+          className="absolute left-[80%] top-[70%] text-2xl animate-particle2 select-none"
           style={{
             transform: `translate(${parallax.x * 20}px, ${parallax.y * 10}px)`
           }}
         >🐍</span>
         <span
-          className="absolute left-1/2 top-1/2 text-3xl animate-particle3 select-none"
+          className="absolute left-1/2 top-1/2 text-2xl animate-particle3 select-none"
           style={{
             transform: `translate(${parallax.x * -10}px, ${parallax.y * 20}px)`
           }}
         >⚛️</span>
         <span
-          className="absolute left-[20%] top-[80%] text-3xl animate-particle4 select-none"
+          className="absolute left-[20%] top-[80%] text-2xl animate-particle4 select-none"
           style={{
             transform: `translate(${parallax.x * 15}px, ${parallax.y * -10}px)`
           }}
         >🌐</span>
       </div>
 
-      <div className="relative z-10 flex flex-col items-center w-full px-4">
-        {/* Profile Image with Animated Gradient Border */}
-        <div className="w-32 h-32 mb-8 rounded-full p-1 animated-gradient-border flex items-center justify-center">
-          <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
-            <img
-              src="/profile.JPG"
-              alt="Lloyd Chibwe profile"
-              className="w-full h-full object-cover rounded-full"
-            />
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 py-12 flex flex-col items-center justify-center">
+        {/* Profile Card */}
+        <div className="w-full flex flex-col md:flex-row items-center gap-10 bg-gradient-to-br from-blue-900/80 via-blue-950/80 to-purple-950/80 rounded-3xl shadow-2xl border border-cyan-400/20 p-8 md:p-14 glowing-desc-box">
+          {/* Profile Image */}
+          <div className="flex-shrink-0">
+            <div className="w-32 h-32 md:w-40 md:h-40 rounded-full p-1 animated-gradient-border flex items-center justify-center mx-auto">
+              <div className="w-full h-full rounded-full bg-gray-800 flex items-center justify-center overflow-hidden">
+                <img
+                  src="/profile.JPG"
+                  alt="Lloyd Chibwe profile"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+            </div>
+          </div>
+          {/* Info */}
+          <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left">
+            <div className="mb-2 text-base md:text-lg text-cyan-200 font-mono animate-fade-in">{greeting}</div>
+            <h1 className="text-3xl md:text-5xl font-extrabold mb-2 drop-shadow-[0_2px_24px_rgba(34,211,238,0.6)] leading-tight">
+              Hi, I'm{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
+                Lloyd
+              </span>
+            </h1>
+            <div className="mb-4 h-8">
+              <span className="text-cyan-300 text-xl md:text-2xl font-mono">{displayed}&nbsp;</span>
+              <span className="text-cyan-400 animate-pulse text-xl md:text-2xl">|</span>
+            </div>
+            <p className="text-base md:text-lg text-blue-200 drop-shadow-[0_2px_12px_rgba(34,211,238,0.3)] mb-6 max-w-xl md:max-w-2xl mx-auto md:mx-0 leading-relaxed text-center md:text-left">
+              Full-Stack developer with 2+ years of experience building scalable web apps in Java (Spring Boot) and React.<br />
+              Skilled in RESTful APIs, JWT authentication, MySQL, and Agile tools like Jira & Git.<br />
+              Team player with strong problem-solving and communication skills, passionate about delivering high-quality software.
+            </p>
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start w-full mb-2">
+              <a
+                href="#projects"
+                onClick={handleScrollToProjects}
+                className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-white px-6 py-3 rounded-lg text-base font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-400/40 focus:outline-none focus:ring-2 focus:ring-cyan-400 flex-1 min-w-[180px] text-center"
+                aria-label="View My Work"
+                style={{ boxShadow: "0 0 24px 4px #22d3ee55" }}
+              >
+                View My Work →
+              </a>
+              <a
+                href="/resume.pdf"
+                download
+                className="border-2 border-cyan-400 text-cyan-300 hover:bg-cyan-400 hover:text-white px-6 py-3 rounded-lg text-base font-semibold transition-all duration-300 shadow-md shadow-cyan-400/30 focus:outline-none focus:ring-2 focus:ring-cyan-400 flex-1 min-w-[180px] text-center"
+                aria-label="Download Resume"
+                style={{ boxShadow: "0 0 16px 2px #22d3ee44" }}
+              >
+                Download Resume
+              </a>
+              <a
+                href="mailto:mrloyiiee@gmail.com?subject=Request%20for%20Certificates"
+                className="border-2 border-purple-400 text-purple-300 hover:bg-purple-400 hover:text-white px-6 py-3 rounded-lg text-base font-semibold transition-all duration-300 shadow-md shadow-purple-400/30 focus:outline-none focus:ring-2 focus:ring-purple-400 flex-1 min-w-[180px] text-center"
+                aria-label="Request Certificates"
+                style={{ boxShadow: "0 0 16px 2px #a21caf44" }}
+              >
+                Request Certificates
+              </a>
+            </div>
           </div>
         </div>
-
-        {/* Greeting */}
-        <div className="mb-2 text-lg text-cyan-200 font-mono animate-fade-in text-center">{greeting}</div>
-
-        {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold mb-2 drop-shadow-[0_2px_24px_rgba(34,211,238,0.6)] text-center">
-          Hi, I'm{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
-            Lloyd
-          </span>
-        </h1>
-
-        {/* Typing Effect */}
-        <div className="mb-6 h-8 text-center">
-          <span className="text-cyan-300 text-2xl font-mono">{displayed}&nbsp;</span>
-          <span className="text-cyan-400 animate-pulse">|</span>
-        </div>
-
-        {/* Description in Glowing Box */}
-        <div className="mx-auto mb-8 w-full max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl px-6 py-6 rounded-2xl bg-gradient-to-br from-blue-900 via-blue-950 to-purple-950/80 border border-cyan-400/30 shadow-lg glowing-desc-box">
-          <p className="text-xl text-blue-200 drop-shadow-[0_2px_12px_rgba(34,211,238,0.3)] text-center">
-            Results-driven and adaptable Computer Science graduate with 2+ years of
-            hands-on experience in building scalable full-stack applications using
-            Java (Spring Boot) and Python (Flask). Proven expertise in developing
-            and optimizing RESTful APIs, reducing processing times by 30%, and
-            implementing robust database solutions. Seeking to leverage technical
-            skills and innovative problem-solving abilities in a challenging software
-            engineering role. Agile collaborator with excellent communication
-            skills, capable of thriving in diverse and distributed teams.
-          </p>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
-          <a
-            href="#projects"
-            onClick={handleScrollToProjects}
-            className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg shadow-cyan-400/40 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-center"
-            aria-label="View My Work"
-            style={{ boxShadow: "0 0 24px 4px #22d3ee55" }}
-          >
-            View My Work →
-          </a>
-          <a
-            href="/resume.pdf"
-            download
-            className="border-2 border-cyan-400 text-cyan-300 hover:bg-cyan-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-md shadow-cyan-400/30 focus:outline-none focus:ring-2 focus:ring-cyan-400 text-center"
-            aria-label="Download Resume"
-            style={{ boxShadow: "0 0 16px 2px #22d3ee44" }}
-          >
-            Download Resume
-          </a>
-          <a
-            href="mailto:mrloyiiee@gmail.com?subject=Request%20for%20Certificates"
-            className="border-2 border-purple-400 text-purple-300 hover:bg-purple-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-md shadow-purple-400/30 focus:outline-none focus:ring-2 focus:ring-purple-400 text-center"
-            aria-label="Request Certificates"
-            style={{ boxShadow: "0 0 16px 2px #a21caf44" }}
-          >
-            Request Certificates
-          </a>
-        </div>
-
-        <p className="text-purple-300 mt-4 text-center">
-          Certificates available upon request.
-        </p>
       </div>
       {/* Custom Glow for Description Box & Animations */}
       <style>
