@@ -122,10 +122,12 @@ const SkillsSection = () => {
             z-index: 1;
             background: conic-gradient(
               from 0deg,
-              #22d3ee 0deg 90deg,
-              #a21caf 90deg 180deg,
-              #818cf8 180deg 270deg,
-              #22d3ee 270deg 360deg
+              #06b6d4 0deg 60deg,      /* cyan-400 */
+              #818cf8 60deg 120deg,    /* indigo-400 */
+              #a21caf 120deg 180deg,   /* purple-700 */
+              #9333ea 180deg 240deg,   /* purple-500 */
+              #2563eb 240deg 300deg,   /* blue-600 */
+              #22d3ee 300deg 360deg    /* cyan-400 */
             );
             mask-image: linear-gradient(#fff 0 0);
             -webkit-mask-image: linear-gradient(#fff 0 0);
