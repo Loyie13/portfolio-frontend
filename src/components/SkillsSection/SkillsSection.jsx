@@ -84,17 +84,7 @@ const SkillsSection = () => {
                 {skill.info && (
                   <span className="text-xs text-cyan-200 mb-2">{skill.info}</span>
                 )}
-                {skill.proficiency && (
-                  <div className="w-full bg-cyan-950 rounded-full h-2 relative mb-2">
-                    <div
-                      className="bg-cyan-400 h-2 rounded-full transition-all duration-1000"
-                      style={{ width: `${skill.proficiency}%` }}
-                    ></div>
-                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-cyan-200 font-semibold">
-                      {skill.proficiency}%
-                    </span>
-                  </div>
-                )}
+                
               </div>
             </div>
           ))}
