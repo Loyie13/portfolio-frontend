@@ -20,16 +20,6 @@ const SkillsSection = () => {
     fetchSkills();
   }, []);
 
-  // Group skills by category
-  const skillsByCategory = skills.reduce((acc, skill) => {
-    const category = skill.category || 'Other';
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(skill);
-    return acc;
-  }, {});
-
   if (loading) {
     return (
       <section
@@ -62,10 +52,8 @@ const SkillsSection = () => {
       id="skills"
       tabIndex="-1"
       aria-label="Skills and technologies"
-      className="py-20 bg-gradient-to-br from-blue-950 via-blue-900 to-purple-950 glowing-margin"
+      className="py-20 bg-gradient-to-br from-blue-950 via-blue-900 to-purple-950"
     >
-      {/* Section Divider */}
-      <div className="absolute left-1/2 -translate-x-1/2 w-2/3 h-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-full blur-lg opacity-70 z-10"></div>
       <div className="max-w-7xl mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -73,52 +61,40 @@ const SkillsSection = () => {
           <p className="text-xl text-cyan-100">Technologies I use to bring ideas to life</p>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
-          {Object.entries(skillsByCategory).map(([category, categorySkills], catIdx) => (
+        {/* Animated Glowing Skill Boxes */}
+        <div className="flex flex-wrap justify-center gap-8">
+          {skills.map((skill, i) => (
             <div
-              key={category}
-              className="text-center animate-fade-in"
-              style={{ animationDelay: `${catIdx * 0.1}s` }}
+              key={skill.id}
+              tabIndex="0"
+              role="listitem"
+              className="relative glowing-skill-box px-6 py-6 rounded-2xl shadow-lg border border-cyan-400/30 bg-gradient-to-br from-blue-900/80 via-blue-950/80 to-purple-950/80 flex flex-col items-center justify-center min-w-[180px] max-w-xs animate-fade-in"
+              style={{ animationDelay: `${i * 0.1}s` }}
             >
-              <h3 className="text-2xl font-semibold text-cyan-200 mb-6 drop-shadow-glow">{category}</h3>
-              <div className="flex flex-wrap justify-center gap-3" role="list">
-                {categorySkills.map((skill, i) => (
-                  <div
-                    key={skill.id}
-                    tabIndex="0"
-                    role="listitem"
-                    className="bg-blue-900/60 hover:bg-cyan-900/60 border border-blue-900/40 rounded-xl px-4 py-3 transition-all duration-200 group shadow-lg shadow-cyan-400/10 focus:ring-2 focus:ring-cyan-400 animate-fade-in relative"
-                    style={{ animationDelay: `${i * 0.05}s` }}
-                  >
-                    <div className="flex items-center space-x-2">
-                      {skill.iconUrl ? (
-                        <img src={skill.iconUrl} alt={skill.name} className="w-6 h-6" />
-                      ) : (
-                        <span className="text-lg text-cyan-300 drop-shadow-glow">⚡</span>
-                      )}
-                      <span className="font-medium text-cyan-100 group-hover:text-cyan-400 transition-colors">
-                        {skill.name}
-                      </span>
-                    </div>
-                    {skill.info && (
-                      <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-xs px-3 py-1 bg-cyan-900 text-cyan-100 text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition pointer-events-none z-20">
-                        {skill.info}
-                      </span>
-                    )}
-                    {skill.proficiency && (
-                      <div className="mt-2 w-full bg-cyan-950 rounded-full h-2 relative">
-                        <div
-                          className="bg-cyan-400 h-2 rounded-full transition-all duration-1000"
-                          style={{ width: `${skill.proficiency}%` }}
-                        ></div>
-                        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-cyan-200 font-semibold">
-                          {skill.proficiency}%
-                        </span>
-                      </div>
-                    )}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="rotating-border w-full h-full rounded-2xl"></div>
+              </div>
+              <div className="relative z-10 flex flex-col items-center">
+                {skill.iconUrl ? (
+                  <img src={skill.iconUrl} alt={skill.name} className="w-10 h-10 mb-2" />
+                ) : (
+                  <span className="text-2xl text-cyan-300 drop-shadow-glow mb-2">⚡</span>
+                )}
+                <span className="font-semibold text-cyan-100 text-lg mb-2">{skill.name}</span>
+                {skill.info && (
+                  <span className="text-xs text-cyan-200 mb-2">{skill.info}</span>
+                )}
+                {skill.proficiency && (
+                  <div className="w-full bg-cyan-950 rounded-full h-2 relative mb-2">
+                    <div
+                      className="bg-cyan-400 h-2 rounded-full transition-all duration-1000"
+                      style={{ width: `${skill.proficiency}%` }}
+                    ></div>
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-cyan-200 font-semibold">
+                      {skill.proficiency}%
+                    </span>
                   </div>
-                ))}
+                )}
               </div>
             </div>
           ))}
@@ -130,10 +106,34 @@ const SkillsSection = () => {
           .drop-shadow-glow {
             text-shadow: 0 0 8px #22d3ee, 0 0 16px #a21caf66;
           }
-          .glowing-margin {
-            box-shadow: 0 0 32px 8px #22d3ee55, 0 0 64px 16px #a21caf44;
-            border-radius: 2rem;
-            margin: 2rem 0;
+          .glowing-skill-box {
+            box-shadow: 0 0 24px 4px #22d3ee55, 0 0 32px 8px #a21caf44;
+            position: relative;
+            overflow: visible;
+          }
+          .rotating-border {
+            border: 4px solid transparent;
+            border-radius: 1rem;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: conic-gradient(
+              from 0deg,
+              #22d3ee 0deg 90deg,
+              #a21caf 90deg 180deg,
+              #818cf8 180deg 270deg,
+              #22d3ee 270deg 360deg
+            );
+            mask-image: linear-gradient(#fff 0 0);
+            -webkit-mask-image: linear-gradient(#fff 0 0);
+            animation: rotateBorder 4s linear infinite;
+          }
+          @keyframes rotateBorder {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
           }
           @keyframes fade-in {
             from { opacity: 0; transform: translateY(10px); }
