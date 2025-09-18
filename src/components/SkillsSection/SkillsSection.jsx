@@ -104,10 +104,10 @@ const SkillsSection = () => {
       <style>
         {`
           .drop-shadow-glow {
-            text-shadow: 0 0 8px #22d3ee, 0 0 16px #a21caf66;
+            text-shadow: 0 0 8px #2563eb, 0 0 16px #1e3a8a99;
           }
           .glowing-skill-box {
-            box-shadow: 0 0 24px 4px #22d3ee55, 0 0 32px 8px #a21caf44;
+            box-shadow: 0 0 24px 4px #2563eb55, 0 0 32px 8px #1e3a8a44;
             position: relative;
             overflow: visible;
           }
@@ -122,12 +122,12 @@ const SkillsSection = () => {
             z-index: 1;
             background: conic-gradient(
               from 0deg,
-              #06b6d4 0deg 60deg,      /* cyan-400 */
-              #818cf8 60deg 120deg,    /* indigo-400 */
-              #a21caf 120deg 180deg,   /* purple-700 */
-              #9333ea 180deg 240deg,   /* purple-500 */
-              #2563eb 240deg 300deg,   /* blue-600 */
-              #22d3ee 300deg 360deg    /* cyan-400 */
+              #1e3a8a 0deg 60deg,    /* blue-900 */
+              #2563eb 60deg 120deg,  /* blue-600 */
+              #1e40af 120deg 180deg, /* blue-800 */
+              #312e81 180deg 240deg, /* indigo-900 */
+              #3b82f6 240deg 300deg, /* blue-500 */
+              #1e3a8a 300deg 360deg  /* blue-900 */
             );
             mask-image: linear-gradient(#fff 0 0);
             -webkit-mask-image: linear-gradient(#fff 0 0);
