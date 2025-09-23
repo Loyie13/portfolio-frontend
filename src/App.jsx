@@ -15,6 +15,7 @@ function App() {
       <SkillsSection />
       <ContactSection />
       <Footer />
+      <Analytics />
     </div>
   );
 }
