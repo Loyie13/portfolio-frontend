@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { contactService } from '../../services/api';
 
 // SVG Icons for social links
 const EmailIcon = () => (
@@ -92,23 +93,14 @@ const ContactSection = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8080/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message
-        })
+      await contactService.send({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message
       });
-      if (response.ok) {
-        setSuccess(true);
-        setShowMessage(true);
-        setFormData({ name: '', email: '', message: '', website: '' });
-      } else {
-        setError('Failed to send message.');
-        setShowMessage(true);
-      }
+      setSuccess(true);
+      setShowMessage(true);
+      setFormData({ name: '', email: '', message: '', website: '' });
     } catch {
       setError('Failed to send message.');
       setShowMessage(true);

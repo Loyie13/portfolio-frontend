@@ -27,4 +27,9 @@ export const blogService = {
   getBySlug: (slug) => api.get(`/blog/slug/${slug}`),
 };
 
+// Contact API
+export const contactService = {
+  send: (data) => api.post('/contact', data),
+};
+
 export default api;
