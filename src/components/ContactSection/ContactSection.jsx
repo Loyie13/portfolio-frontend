@@ -71,7 +71,7 @@ const ContactSection = () => {
 
   const errors = validate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess(false);
@@ -91,14 +91,30 @@ const ContactSection = () => {
 
     setLoading(true);
 
-    // Simulate async submission
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
+    try {
+      const response = await fetch('http://localhost:8080/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message
+        })
+      });
+      if (response.ok) {
+        setSuccess(true);
+        setShowMessage(true);
+        setFormData({ name: '', email: '', message: '', website: '' });
+      } else {
+        setError('Failed to send message.');
+        setShowMessage(true);
+      }
+    } catch {
+      setError('Failed to send message.');
       setShowMessage(true);
-      setFormData({ name: '', email: '', message: '', website: '' });
-      setFormData({ name: '', email: '', message: '', website: '' });
-    }, 1200);
+    } finally {
+      setLoading(false);
+    }
   };
   const handleChange = (e) => {
     setFormData({
