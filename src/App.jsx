@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar/Navbar";
+import { Analytics } from "@vercel/analytics/react";
 import Hero from "./components/Hero/Hero";
 import ProjectsSection from "./components/ProjectsSection/ProjectsSection";
 import SkillsSection from "./components/SkillsSection/SkillsSection";
